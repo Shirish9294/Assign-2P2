@@ -4,3 +4,4 @@ djangorestframework
 django-mathfilters
 requests
 xhtml2pdf
+selenium
