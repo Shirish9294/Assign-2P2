@@ -252,4 +252,13 @@ def portfolio_pdf(request, pk):
     template = get_template('portfolio/portfolio_pdf.html')
     html = template.render(context)
     pdf = render_to_pdf('portfolio/portfolio_pdf.html', context)
-    return pdf
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = "Customers_%s.pdf" %("portfolio")
+        content = "inline; filename='%s'" %(filename)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse("Not found")
